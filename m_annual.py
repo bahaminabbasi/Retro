@@ -57,31 +57,33 @@ for i, row in df.iterrows():
     print(row["index"])
     print("///////////////////////////////////////////")
 
+
+
     # Initialise an instance of the Zone. Empty spaces take on the default
     # parameters. See ZonePhysics.py to see the default values
-    Office = Zone(window_area=row["A_Calc_Window_East"],
-                walls_area=11.0,
-                floor_area=35.0,
-                room_vol=105,
-                total_internal_area=142.0,
-                lighting_load=11.7,
-                lighting_control=300.0,
-                lighting_utilisation_factor=0.45,
-                lighting_maintenance_factor=0.9,
-                u_walls=0.2,
-                u_windows=1.1,
-                ach_vent=1.5,
-                ach_infl=0.5,
-                ventilation_efficiency=0.6,
-                thermal_capacitance_per_floor_area=165000,
-                t_set_heating=20.0,
-                t_set_cooling=26.0,
+    Office = Zone(window_area=row["window_area"],
+                walls_area=row["walls_area"],
+                floor_area=row["floor_area"],
+                room_vol=row["room_vol"],
+                total_internal_area=row["total_internal_area"],
+                lighting_load=row["lighting_load"],
+                lighting_control=row["lighting_control"],
+                lighting_utilisation_factor=row["lighting_utilisation_factor"],
+                lighting_maintenance_factor=row["lighting_maintenance_factor"],
+                u_walls=row["u_walls"],
+                u_windows=row["u_windows"],
+                ach_vent=row["ach_vent"],
+                ach_infl=row["ach_infl"],
+                ventilation_efficiency=row["ventilation_efficiency"],
+                thermal_capacitance_per_floor_area=row["thermal_capacitance_per_floor_area"],
+                t_set_heating=row["t_set_heating"],
+                t_set_cooling=row["t_set_cooling"],
                 max_cooling_energy_per_floor_area=-np.inf,
                 max_heating_energy_per_floor_area=np.inf,
-                heating_supply_system=supply_system.OilBoilerMed,
-                cooling_supply_system=supply_system.HeatPumpAir,
-                heating_emission_system=emission_system.NewRadiators,
-                cooling_emission_system=emission_system.AirConditioning,)
+                heating_supply_system="heating_supply_system",
+                cooling_supply_system="cooling_supply_system",
+                heating_emission_system="heating_emission_system",
+                cooling_emission_system="cooling_emission_system",)
 
     # Define Windows
     SouthWindow = Window(azimuth_tilt=0, alititude_tilt=90, glass_solar_transmittance=0.7,
@@ -157,7 +159,9 @@ for i, row in df.iterrows():
         'COP': COP
     })
 
+    annualResults.to_excel(r'E:\NTNU\4 semester\Masoud code\RC_BuildingSimulator\rc_simulator\my_files\result.xlsx')
+
     # Plotting has been commented out as it can not be conducted in a virtual environment over ssh
-    annualResults[['HeatingEnergy', 'CoolingEnergy']].plot()
-    plt.show()
+    #annualResults[['HeatingEnergy', 'CoolingEnergy']].plot()
+    #plt.show()
 
